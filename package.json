@@ -1,0 +1,31 @@
+{
+  "name": "anuttara-pages",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anuttarascripter/anuttarascripter.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/anuttarascripter/anuttarascripter.github.io/issues"
+  },
+  "homepage": "https://github.com/anuttarascripter/anuttarascripter.github.io#readme",
+  "dependencies": {
+    "dotenv": "^12.0.3",
+    "express": "^4.17.2"
+  },
+  "devDependencies": {
+    "gh-pages": "^3.2.3"
+  }
+}
