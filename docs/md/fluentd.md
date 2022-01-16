@@ -101,6 +101,7 @@ $ tail -f /var/log/td-agent/td-agent.log
 
 ```
 $ cat /etc/td-agent/td-agent.conf
+$ sudo vi /etc/td-agent/td-agent.conf
 $ sudo systemctl restart td-agent.service
 $ sudo systemctl reload td-agent.service
 ```
@@ -165,6 +166,56 @@ $ sudo systemctl reload td-agent.service
 ```
 /var/log/td-agent/td-agent.log
 ```
+
+<br/><br/>
+
+# Config File Syntax
+
+https://docs.fluentd.org/configuration/config-file
+
+## 1. source: where all the data come from
+
+The source submits events to the Fluentd routing engine. An event consists of three entities.
+
+Tag: The tag is a string separated by dots (e.g. myapp.access), and is used as the directions for Fluentd internal routing engine. It is strongly recommended that you stick to the lower-case alphabets, digits and underscore (e.g. ^[a-z0-9_]+$).
+
+Time: The time field is specified by input plugins, and it must be in the Unix time format.
+
+Record: The record is a JSON object.
+
+### forward
+
+https://docs.fluentd.org/input/forward \
+The in_forward Input plugin listens to a TCP socket to receive the event stream. It also listens to a UDP socket to receive heartbeat messages.
+
+```
+<source>
+  @type forward
+  port 24224
+  bind 0.0.0.0
+</source>
+```
+
+### http
+
+https://docs.fluentd.org/input/http \
+The in_http Input plugin allows you to send events through HTTP requests. Using this plugin, you can trivially launch a REST endpoint to gather data.
+
+```
+<source>
+  @type http
+  port 9880
+  bind 0.0.0.0
+  body_size_limit 32m
+  keepalive_timeout 10s
+</source>
+```
+
+```
+$ curl -X POST -d 'json={"foo":"bar"}' http://localhost:9880/app.log
+```
+
+## 2. match: Tell fluentd what to do!
 
 <br/><br/>
 

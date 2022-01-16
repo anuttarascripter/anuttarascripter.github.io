@@ -1,7 +1,7 @@
 const sections = [
   {
     title: "system",
-    items: ["ubuntu"],
+    items: ["ubuntu", "wsl"],
   },
   {
     title: "cloud",
@@ -9,7 +9,7 @@ const sections = [
   },
   {
     title: "utils",
-    items: ["webpack", "markdown"],
+    items: ["webpack", "markdown", "text-editors"],
   },
   {
     title: "study list",

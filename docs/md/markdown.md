@@ -13,3 +13,12 @@ https://www.npmjs.com/package/marked
 ## etc
 
 https://stackoverflow.com/questions/37770620/how-to-include-markdown-md-files-inside-html-files
+
+
+https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet#code
+```
+Shell:      console, shell
+Bash:       bash, sh, zsh
+PowerShell: powershell, ps
+DOS:        dos, bat, cmd
+```
