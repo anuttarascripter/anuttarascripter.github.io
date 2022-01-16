@@ -1,0 +1,14 @@
+#header {
+  margin: 0;
+  padding: 50px;
+  background-image: url(/img/LDI.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 50px;
+  line-height: 50px;
+}
+
+h3 {
+  margin-top: 40px;
+  padding-left: 16px;
+}
