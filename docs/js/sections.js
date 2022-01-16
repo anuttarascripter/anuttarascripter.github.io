@@ -1,7 +1,7 @@
 const sections = [
   {
     title: "system",
-    items: ["ubuntu", "wsl"],
+    items: ["ubuntu-101", "ubuntu-102", "wsl"],
   },
   {
     title: "cloud",

@@ -53,7 +53,12 @@ $ ls -al /etc/default/grub.d
    컴퓨터 시스템의 부팅 과정 중 최초의 프로세스 (PID 1)로 루트 유저 프로세스로 systemd등의 부팅 과정 수행 \
    /etc/inittab 등 실행 (이제 사용되지 않음) \
    https://askubuntu.com/questions/34308/where-is-the-inittab-file \
-   http://soopsaram.com/lfs/markdowns/7_System_Configuration_and_Bootscripts.html
+   http://soopsaram.com/lfs/markdowns/7_System_Configuration_and_Bootscripts.html \
+   https://www.geeksforgeeks.org/what-is-init-d-in-linux-service-management/
+
+   init.d \
+   init.d는 init 프로세스가 실행되기 위한 스크립트 파일들을 보관한 곳 \
+   https://rudalson.tistory.com/entry/Linux의-init-process-그리고-systemd
 
 6. Runlevel \
    A runlevel is a mode of operation in the computer operating systems that implements Unix System V-style initialization. A runlevel defines the state of the machine after boot.
@@ -152,7 +157,9 @@ $ init 3
 $ init 5
 
 $ sudo service --status-all
+
 $ sudo service network-manager restart
+$ sudo /etc/init.d/network-manage restart
 ```
 
 <br/>

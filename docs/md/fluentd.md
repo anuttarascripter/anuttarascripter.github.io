@@ -13,6 +13,24 @@ https://hub.docker.com/r/fluent/fluentd
 
 ## Set Up NTP
 
+https://chrony.tuxfamily.org/documentation.html \
+https://docs.aws.amazon.com/ko_kr/AWSEC2/latest/UserGuide/set-time.html \
+https://hoing.io/archives/3814
+
+```bash
+$ sudo apt install chrony
+$ sudo vi /etc/chrony/chrony.conf
+
+$ sudo /etc/init.d/chrony restart
+$ chronyc sources -v
+```
+
+/etc/chrony.conf 에 다음 라인을 추가한다.
+
+```
+server 169.254.169.123 prefer iburst minpoll 4 maxpoll 4
+```
+
 ## Increase the Maximum Number of File Descriptors
 
 ```bash
@@ -60,12 +78,6 @@ fs.protected_symlinks = 1
 ## Installing td-agent
 
 ### Step 1: Install from Apt Repository
-
-Ubuntu version check
-
-```bash
-$ lsb_release -a
-```
 
 For Ubuntu Focal
 

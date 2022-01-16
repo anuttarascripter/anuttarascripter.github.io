@@ -22,3 +22,9 @@ file://localhost/c:/
 
 https://docs.travis-ci.com/user/deployment/pages/ \
 https://stackoverflow.com/questions/48588908/deploying-ignored-dist-folder-to-github-pages
+
+### windows
+
+```ps
+PS> route print
+```
