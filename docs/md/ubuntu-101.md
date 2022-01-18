@@ -133,11 +133,19 @@ $ ls /etc/systemd/system/multi-user.target.wants/ -al
 $ cd /lib/systemd/system/myservice.service
 
 $ sudo systemctl daemon-reload
-$ sudo systemctl enable myservice
-$ sudo systemctl start myservice
-$ sudo systemctl status myservice
-$ sudo systemctl stop myservice
-$ sudo systemctl disable myservice
+
+$ sudo systemctl start myservice             # 서비스 시작 (실행)
+$ sudo systemctl status myservice            # 서비스 상태확인
+$ sudo systemctl stop myservice              # 서비스 중지
+$ sudo systemctl restart myservice           # 서비스 재시작 (중지후 시작)
+$ sudo systemctl reload myservice            # 서비스 유지, 설정 값 재반영
+$ sudo systemctl is-active myservice         # 실행중인지 확인
+
+$ sudo systemctl enable myservice            # 재부팅시 자동 실행
+$ sudo systemctl disable myservice           # 재부팅시 자동 실행 해제
+$ sudo systemctl is-enable myservice         # 자동실행 설정여부 확인
+
+$ systemctl list-units --type service -all   # 모든 서비스의 상태 표시
 ```
 
 ### init (SysV 및 Upstart)

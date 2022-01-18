@@ -31,5 +31,17 @@ $ ifconfig
 ## ETC
 
 ```bash
-$ lsb_release -a      # Ubuntu version check
+$ lsb_release -a              # Ubuntu version check
+
+$ top                         # CPU 사용률 체크
+
+$ sudo su                     # 관리자 권한 모드 진입
+
+$ node app.js &               # 백그라운드로 실행
+$ node app.js > app.out.log 2> app.err.log < /dev/null &
+$ nohup node app.js &
+
+$ ln -s {TARGET} {LINK_NAME}  # symlink(soft link) 생성
+
+$ rm {FILE_NAME}              # 파일삭제
 ```
