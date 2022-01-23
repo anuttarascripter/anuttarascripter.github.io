@@ -1,1 +1,125 @@
+## webpack Concepts
+
 https://webpack.js.org/
+
+webpack은 모던 JavaScript 애플리케이션을 위한 정적 모듈 번들러 입니다.
+
+### 1. Entry
+
+Webpack은 엔트리 포인트가 (직간접적으로) 의존하는 다른 모듈과 라이브러리를 찾아냅니다.
+
+```js
+module.exports = {
+  entry: "./src/index.js", // default
+};
+```
+
+### 2. Output
+
+output 속성은 생성된 번들을 내보낼 위치와 이 파일의 이름을 지정하는 방법을 webpack에 알려주는 역할을 합니다.
+
+```js
+const path = require("path");
+
+module.exports = {
+  output: {
+    // default
+    path: path.resolve(__dirname, "dist"),
+    filename: "main.js",
+  },
+};
+```
+
+### 3. Loaders
+
+webpack은 기본적으로 JavaScript와 JSON 파일만 이해합니다. 로더를 사용하면 webpack이 다른 유형의 파일을 처리하거나, 그들을 유효한 모듈로 변환 하여 애플리케이션에서 사용하거나 디펜던시 그래프에 추가합니다.
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        // 변환이 필요한 파일(들)을 식별하는 test 속성
+        test: /\.css$/i,
+
+        // 변환을 수행하는데 사용되는 로더를 가리키는 use 속성
+        use: [
+          {
+            loader: "style-loader",
+            options: {
+              // 합쳐서 하나의 style 태그 생성
+              injectType: "singletonStyleTag",
+            },
+          },
+          {
+            loader: "css-loader",
+            options: {
+              // 모듈화를 위해 css의 class, id 이름을 재생성
+              modules: true,
+            },
+          },
+        ],
+      },
+    ],
+  },
+};
+```
+
+https://webpack.kr/concepts/loaders
+
+로더는 오른쪽에서 왼쪽으로 (또는 아래에서 위로) 평가/실행됩니다. 위의 예제에서는 css-loader로 실행이 시작되고, style-loader로 끝납니다.
+
+### 4. Plugins
+
+플러그인을 활용하여 번들을 최적화하거나, 애셋을 관리하고, 또 환경 변수 주입등과 같은 광범위한 작업을 수행 할 수 있습니다.
+
+```js
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+
+module.exports = {
+  plugins: [
+    // https://github.com/jantimon/html-webpack-plugin
+    new HtmlWebpackPlugin({
+      title: "hello webapack",
+      // By default (if you don't specify any loader in any way) a fallback ejs loader kicks in.
+      // This loader does not support the full ejs syntax as it is based on lodash template.
+      template: "src/index.ejs", // default
+      meta: {
+        viewport: "width=device-width, initial-scale=1.0",
+      },
+    }),
+    // 기존 생성된 번들파일 삭제후 재생성
+    new CleanWebpackPlugin(),
+  ],
+};
+```
+
+https://stackoverflow.com/questions/41470771/webpack-does-the-order-of-plugins-matter \
+https://webpack.kr/plugins/html-webpack-plugin/
+
+### 5. Mode
+
+mode 파라미터를 development, production 또는 none으로 설정하면 webpack에 내장된 환경별 최적화를 활성화 할 수 있습니다.
+
+```js
+module.exports = {
+  mode: "production", // default
+};
+```
+
+### 6. Targets
+
+https://webpack.kr/concepts/targets/ \
+https://webpack.kr/configuration/target/
+
+JavaScript는 서버와 클라이언트 모두 작성이 가능하기 때문에 webpack은 webpack 설정에서 다수의 배포 대상을 제공합니다.
+
+```js
+module.exports = {
+  target: "web", // default
+  // target: "browserslist", // default if browserslist config is available
+  // https://github.com/browserslist/browserslist#queries
+  // package.json | .browserslistrc
+};
+```

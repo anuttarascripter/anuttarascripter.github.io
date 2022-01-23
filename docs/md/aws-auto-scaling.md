@@ -60,3 +60,6 @@ Groups Size             : instance 갯수, Desired: 1, Min: 1, Max: 4
 Scaling Policies        : 대상 추적 조정 정책, 지표(CPU 사용률), 대상값(50 %), 웜업(300 초)
 Tag                     : Name 태그에 이름 넣고, 새 인스턴스에 태그 지정체크, 생성될 ec2 이름 설정
 ```
+
+https://kr-id-general.workshop.aws/en/advanced_modules/database/update_asg.html \
+https://docs.aws.amazon.com/autoscaling/ec2/userguide/asg-instance-refresh.html
