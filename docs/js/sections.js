@@ -5,7 +5,7 @@ const sections = [
   },
   {
     title: "web",
-    items: ["nginx-101", "node.js"],
+    items: ["nginx-101", "node.js", "dom"],
   },
   {
     title: "cloud",
@@ -13,10 +13,10 @@ const sections = [
   },
   {
     title: "utils",
-    items: ["webpack", "markdown", "text-editors"],
+    items: ["webpack-101", "markdown", "text-editors"],
   },
   {
     title: "study list",
-    items: ["todos"],
+    items: ["regex", "todos"],
   },
 ];

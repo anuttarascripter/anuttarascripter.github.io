@@ -1,6 +1,19 @@
-## webpack Concepts
+## webpack 설치 및 실행
 
 https://webpack.js.org/
+
+```bash
+$ npm install webpack webpack-cli --save-dev
+```
+
+webpack.config.js가 있으면 webpack 명령은 기본으로 이것을 선택합니다.
+
+```bash
+$ npx webpack
+$ npx webpack --config prod.config.js
+```
+
+## webpack Concepts
 
 webpack은 모던 JavaScript 애플리케이션을 위한 정적 모듈 번들러 입니다.
 
@@ -32,7 +45,15 @@ module.exports = {
 
 ### 3. Loaders
 
-webpack은 기본적으로 JavaScript와 JSON 파일만 이해합니다. 로더를 사용하면 webpack이 다른 유형의 파일을 처리하거나, 그들을 유효한 모듈로 변환 하여 애플리케이션에서 사용하거나 디펜던시 그래프에 추가합니다.
+webpack은 기본적으로 JavaScript와 JSON 파일만 이해합니다.
+
+로더를 사용하면 webpack이 다른 유형의 파일을 처리하거나, 그들을 유효한 모듈로 변환 하여 애플리케이션에서 사용하거나 디펜던시 그래프에 추가합니다.
+
+```bash
+$ npm install --save-dev style-loader css-loader
+```
+
+webpack은 import와 export 문 이외는 코드를 변경하지 않습니다. 다른 ES2015 기능을 사용한다면 webpack의 로더 시스템인 Babel을 트랜스파일러로 사용해야 합니다.
 
 ```js
 module.exports = {
@@ -64,6 +85,8 @@ module.exports = {
   },
 };
 ```
+
+모듈 로더는 체인으로 연결할 수 있습니다. 체인의 각 로더는 리소스에 변형을 적용합니다. 체인은 역순으로 실행됩니다. 첫 번째 로더는 결과(변형이 적용된 리소스)를 다음 로더로 전달합니다. 마지막으로 webpack은 체인의 마지막 로더가 JavaScript를 반환할 것으로 예상합니다.
 
 https://webpack.kr/concepts/loaders
 
