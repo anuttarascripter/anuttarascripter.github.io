@@ -23,7 +23,10 @@ Webpack은 엔트리 포인트가 (직간접적으로) 의존하는 다른 모�
 
 ```js
 module.exports = {
-  entry: "./src/index.js", // default
+  entry: {
+    // default
+    main: "./src/index.js",
+  },
 };
 ```
 
@@ -38,7 +41,7 @@ module.exports = {
   output: {
     // default
     path: path.resolve(__dirname, "dist"),
-    filename: "main.js",
+    filename: "[name].js",
   },
 };
 ```
@@ -80,6 +83,10 @@ module.exports = {
             },
           },
         ],
+      },
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
       },
     ],
   },

@@ -112,6 +112,29 @@ https://webpack.kr/plugins/html-webpack-plugin/
 $ npm install --save-dev html-webpack-plugin
 ```
 
+### Basic Usage
+
+```js
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+module.exports = {
+  entry: {
+    index: "./src/index.js",
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: "Development",
+    }),
+  ],
+  output: {
+    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    clean: true,
+  },
+};
+```
+
 ## Optimization
 
 https://webpack.kr/configuration/optimization
@@ -139,10 +162,42 @@ module.exports = {
 
 ### optimization.splitChunks
 
+See available options for configuring in the SplitChunksPlugin page.
+
+## SplitChunksPlugin
+
 https://webpack.kr/plugins/split-chunks-plugin/#optimizationsplitchunks
 
-webpack v4+에서는 동적으로 가져온 모듈에 새로운 공통 청크 전략을 바로 사용할 수 있습니다.
-optimization.splitChunks 설정 옵션을 적용하면 중복 의존성이 제거된 것을 확인 할 수 있습니다.
+optimization.splitChunks 설정 옵션을 적용하면 중복 의존성이 제거할 수 있습니다. Webpack은 다음 조건에 따라 자동으로 청크를 분할합니다.
+
+- 새 청크를 공유 할 수 있거나 모듈이 node_modules 폴더에 있는 경우
+- 새 청크가 20kb보다 클 경우(before min+gz)
+- 요청 시 청크를 로드할 때 최대 병렬 요청 수가 30개 이하일 경우
+- 초기 페이지 로드 시 최대 병렬 요청 수가 30개 이하일 경우
+
+마지막 두 가지 조건을 충족하려고 할 때 더 큰 청크가 선호됩니다.
+
+```js
+module.exports = {
+  //...
+  optimization: {
+    splitChunks: {
+      // 모든 유형의 청크를 포함합니다.
+      chunks: "all",
+    },
+  },
+};
+```
+
+### splitChunks.chunks
+
+이것은 최적화를 위해 선택될 청크를 나타냅니다. 문자열이 제공될 때 유효한 값은 all, async 및 initial입니다. all을 제공하는 것은 비동기 청크와 동기 청크 간에도 청크를 공유할 수 있다는 것을 의미하기 때문에 특히 강력할 수 있습니다.
+
+### splitChunks.cacheGroups
+
+https://webpack.kr/plugins/split-chunks-plugin/#splitchunkscachegroups
+
+캐시 그룹은 splitChunks.\*의 모든 옵션을 상속 및(또는) 재정의할 수 있습니다. 그러나 test, priority 및 reuseExistingChunk는 캐시 그룹 수준에서만 구성할 수 있습니다.
 
 ## mini-css-extract-plugin
 
@@ -155,6 +210,23 @@ https://webpack.kr/plugins/mini-css-extract-plugin/
 https://webpack.kr/configuration/devtool/
 
 오류와 경고를 쉽게 추적할 수 있도록, JavaScript는 컴파일된 코드를 원래 소스로 매핑하는 소스맵을 제공합니다.
+
+```js
+const path = require("path");
+
+module.exports = {
+  mode: "development",
+  entry: {
+    index: "./src/index.js",
+  },
+  devtool: "source-map",
+  output: {
+    filename: "[name].bundle.js",
+    path: path.resolve(__dirname, "dist"),
+    clean: true,
+  },
+};
+```
 
 |                   |                                                                               |
 | :---------------- | :---------------------------------------------------------------------------- |

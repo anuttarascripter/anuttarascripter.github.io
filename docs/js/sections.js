@@ -13,7 +13,13 @@ const sections = [
   },
   {
     title: "utils",
-    items: ["webpack-101", "webpack-102", "markdown", "text-editors"],
+    items: [
+      "webpack-101",
+      "webpack-102",
+      "webpack-103",
+      "markdown",
+      "text-editors",
+    ],
   },
   {
     title: "study list",
