@@ -92,6 +92,12 @@ https://webpack.kr/concepts/loaders
 
 로더는 오른쪽에서 왼쪽으로 (또는 아래에서 위로) 평가/실행됩니다. 위의 예제에서는 css-loader로 실행이 시작되고, style-loader로 끝납니다.
 
+#### Asset Modules (webpack 5)
+
+https://webpack.kr/guides/asset-modules/
+
+애셋 모듈은 로더를 추가로 구성하지 않아도 애셋 파일(폰트, 아이콘 등)을 사용할 수 있도록 해주는 모듈입니다. 이미지도 webpack 5부터 내장된 Asset Modules를 사용하여 시스템에 쉽게 통합할 수 있습니다.
+
 ### 4. Plugins
 
 플러그인을 활용하여 번들을 최적화하거나, 애셋을 관리하고, 또 환경 변수 주입등과 같은 광범위한 작업을 수행 할 수 있습니다.
@@ -146,3 +152,5 @@ module.exports = {
   // package.json | .browserslistrc
 };
 ```
+
+https://joshua1988.github.io/webpack-guide/guide.html
