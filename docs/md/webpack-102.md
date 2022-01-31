@@ -1,4 +1,4 @@
-## entry
+## Entry
 
 https://webpack.kr/configuration/entry-context/#entry
 
@@ -102,15 +102,81 @@ Allows to setup how styles will be injected into the DOM
 - "styleTag" (Default) \
   Automatically injects styles into the DOM using multiple <style></style>. It is default behaviour.
 
+- "singletonStyleTag" \
+  Automatically injects styles into the DOM using one <style></style>.
+
+## css-loader
+
+https://webpack.js.org/loaders/css-loader/
+
+### Options
+
+https://github.com/webpack-contrib/css-loader#modules
+
+1\. modules
+
+Allows to enables/disables or setup CSS Modules options \
+CSS의 class, id 이름을 자동 재생성하여 모듈에 적용 (여러 CSS에서 이름이 중복되어도 구분가능)
+
+- undefined (Default) \
+  enable CSS modules for all files matching /\\.module\\.\w+\$/i.test(filename) and /\\.icss\\.\\w+$/i.test(filename) regexp.
+
+- true \
+  enable CSS modules for all files.
+
+- false \
+  disables CSS Modules for all files. Using false value increase performance because we avoid parsing CSS Modules features, it will be useful for developers who use vanilla css or use other technologies.
+
 ## html-webpack-plugin
 
 https://webpack.kr/plugins/html-webpack-plugin/
+
+웹팩에서 만들어진 번들파일들이 주입된 html 파일을 생성해준다.
 
 ### Installation
 
 ```bash
 $ npm install --save-dev html-webpack-plugin
 ```
+
+### Options
+
+https://github.com/jantimon/html-webpack-plugin#options
+
+1\. title \
+The title to use for the generated HTML document
+
+2\. filename \
+The file to write the HTML to. Defaults to index.html. You can specify a subdirectory here too (eg: assets/admin.html). The [name] placeholder will be replaced with the entry name.
+
+3\. template \
+webpack relative or absolute path to the template. By default it will use src/index.ejs if it exists. By default (if you don't specify any loader in any way) a fallback ejs loader kicks in. Please note that this loader does not support the full ejs syntax as it is based on lodash template.
+
+https://github.com/jantimon/html-webpack-plugin/blob/main/docs/template-option.md
+
+Template processor allows to use any webpack loader:
+
+- pug
+- ejs
+- underscore
+- handlebars
+- html-loader
+- ...
+
+Under the hood it is using a webpack child compilation which inherits all loaders from your main configuration.
+
+There are three ways to set the loader:
+
+- Don't set any loader
+- Setting a loader directly for the template
+- Setting a loader using the module.rules syntax
+
+4\. templateParameters \
+Allows to overwrite the parameters used in the template \
+https://github.com/jantimon/html-webpack-plugin/tree/main/examples/template-parameters
+
+5\. meta \
+Allows to inject meta-tags.meta: {viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'}
 
 ### Basic Usage
 
@@ -119,12 +185,15 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
-  entry: {
-    index: "./src/index.js",
-  },
   plugins: [
     new HtmlWebpackPlugin({
-      title: "Development",
+      // default
+      title: "Webpack App",
+      filename: "index.html",
+      template: "src/index.ejs",
+      // meta: {
+      //   viewport: "width=device-width, initial-scale=1, shrink-to-fit=no",
+      // },
     }),
   ],
   output: {
@@ -245,3 +314,7 @@ this._sourceMapManager.setEnabled(
   Common.moduleSetting("jsSourceMapsEnabled").get()
 );
 ```
+
+## ETC
+
+https://www.npmjs.com/package/normalize.css

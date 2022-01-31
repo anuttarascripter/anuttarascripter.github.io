@@ -53,6 +53,13 @@ https://docs.npmjs.com/cli/v8/commands/npx
 
 This command allows you to run an arbitrary command from an npm package (either one installed locally, or fetched remotely), in a similar context as running it via npm run.
 
+로컬 설치된 모듈을 npx로 실행하는 경우, ./node_modules/.bin 폴더의 각 Shell Script를 직접 실행한다.
+
+```bash
+$ npx webpack
+$ ./node_modules/.bin/webpack # bash shell인 경우 bash shell script가 실행
+```
+
 ### npx vs npm exec
 
 https://docs.npmjs.com/cli/v8/commands/npx#npx-vs-npm-exec

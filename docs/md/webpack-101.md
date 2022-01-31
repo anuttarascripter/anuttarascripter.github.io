@@ -6,18 +6,20 @@ https://webpack.js.org/
 $ npm install webpack webpack-cli --save-dev
 ```
 
-webpack.config.js가 있으면 webpack 명령은 기본으로 이것을 선택합니다.
+기본 설정 파일인 webpack.config.js가 있으면 webpack 명령은 기본으로 이것을 선택합니다. 기본 설정 파일이 없으면 webpack은 프로젝트의 엔트리 포인트를 src/index.js으로 가정하고, 프로덕션을 위해 압축하고 최적화된 결과를 dist/main.js로 내보냅니다.
 
 ```bash
 $ npx webpack
+$ npx webpack --mode=development
+$ npx webpack --mode=production --target=node
 $ npx webpack --config prod.config.js
 ```
 
 ## webpack Concepts
 
-webpack은 모던 JavaScript 애플리케이션을 위한 정적 모듈 번들러 입니다.
+webpack은 모던 JavaScript 애플리케이션을 위한 정적 모듈 번들러 입니다. 설정파일을 통해서 번들링 과정을 설정할 수 있습니다.
 
-### 1. Entry
+### 1. Entry Points
 
 Webpack은 엔트리 포인트가 (직간접적으로) 의존하는 다른 모듈과 라이브러리를 찾아냅니다.
 
@@ -56,8 +58,6 @@ webpack은 기본적으로 JavaScript와 JSON 파일만 이해합니다.
 $ npm install --save-dev style-loader css-loader
 ```
 
-webpack은 import와 export 문 이외는 코드를 변경하지 않습니다. 다른 ES2015 기능을 사용한다면 webpack의 로더 시스템인 Babel을 트랜스파일러로 사용해야 합니다.
-
 ```js
 module.exports = {
   module: {
@@ -79,7 +79,7 @@ module.exports = {
             loader: "css-loader",
             options: {
               // 모듈화를 위해 css의 class, id 이름을 재생성
-              modules: true,
+              // modules: true,
             },
           },
         ],
@@ -134,15 +134,17 @@ module.exports = {
 https://stackoverflow.com/questions/41470771/webpack-does-the-order-of-plugins-matter \
 https://webpack.kr/plugins/html-webpack-plugin/
 
-### 5. Mode
+### 5. Modules
 
-mode 파라미터를 development, production 또는 none으로 설정하면 webpack에 내장된 환경별 최적화를 활성화 할 수 있습니다.
+Webpack은 기본적으로 다음 유형의 모듈을 지원합니다.
 
-```js
-module.exports = {
-  mode: "production", // default
-};
-```
+- ECMAScript 모듈
+- CommonJS 모듈
+- AMD 모듈
+- Assets
+- WebAssembly 모듈
+
+webpack은 import와 export 문 이외는 코드를 변경하지 않습니다. 다른 ES2015 기능을 사용한다면 webpack의 로더 시스템인 Babel을 트랜스파일러로 사용해야 합니다.
 
 ### 6. Targets
 
@@ -157,6 +159,16 @@ module.exports = {
   // target: "browserslist", // default if browserslist config is available
   // https://github.com/browserslist/browserslist#queries
   // package.json | .browserslistrc
+};
+```
+
+### 7. Mode
+
+mode 파라미터를 development, production 또는 none으로 설정하면 webpack에 내장된 환경별 최적화를 활성화 할 수 있습니다.
+
+```js
+module.exports = {
+  mode: "production", // default (development|production|none)
 };
 ```
 
