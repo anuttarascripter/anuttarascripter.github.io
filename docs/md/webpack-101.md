@@ -126,6 +126,7 @@ module.exports = {
       },
     }),
     // 기존 생성된 번들파일 삭제후 재생성
+    // check output.clean (5.20.0+)
     new CleanWebpackPlugin(),
   ],
 };

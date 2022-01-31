@@ -81,6 +81,14 @@ https://webpack.kr/configuration/output/#template-strings
 | [chunkhash]   | 청크의 모든 요소를 포함한 청크의 해시                                                  |
 | [contenthash] | 콘텐츠 타입의 요소만 포함하는 청크의 해시 (optimization.realContentHash의 영향을 받음) |
 
+https://medium.com/@sahilkkrazy/hash-vs-chunkhash-vs-contenthash-e94d38a32208
+
+<b>Chunkhash</b>: \
+Chunkhash is based on webpack entry point. Each entry defined will have it’s own hash. If anything changes for that particular entry point than only corresponding hash will change.
+
+<b>Contenthash</b>: \
+Contenthash is specfic type of hash created in ExtractTextPlugin and is calculated by extracted content not by full chunk content.
+
 ## style-loader
 
 https://webpack.kr/loaders/style-loader/
@@ -178,6 +186,10 @@ https://github.com/jantimon/html-webpack-plugin/tree/main/examples/template-para
 5\. meta \
 Allows to inject meta-tags.meta: {viewport: 'width=device-width, initial-scale=1, shrink-to-fit=no'}
 
+6\. minify \
+Controls if and in what ways the output should be minified. \
+https://github.com/jantimon/html-webpack-plugin#minification
+
 ### Basic Usage
 
 ```js
@@ -194,6 +206,7 @@ module.exports = {
       // meta: {
       //   viewport: "width=device-width, initial-scale=1, shrink-to-fit=no",
       // },
+      minify: true, // true if mode is 'production', otherwise false
     }),
   ],
   output: {
@@ -228,6 +241,14 @@ module.exports = {
 ```
 
 기본값은 false입니다. 각 엔트리 청크에는 런타임이 포함됩니다.
+
+### optimization.minimize
+
+TerserPlugin 또는 optimization.minimizer에 지정된 플러그인을 사용하여 번들을 최소화합니다.
+
+### optimization.minimizer
+
+하나 이상의 다른 TerserPlugin 인스턴스를 제공하여 기본 최소화 도구를 다시 설정할 수 있습니다.
 
 ### optimization.splitChunks
 
@@ -273,6 +294,101 @@ https://webpack.kr/plugins/split-chunks-plugin/#splitchunkscachegroups
 https://webpack.kr/plugins/mini-css-extract-plugin/
 
 메인 애플리케이션에서 CSS를 분리하는데 유용합니다.
+This plugin extracts CSS into separate files. It creates a CSS file per JS file which contains CSS. It supports On-Demand-Loading of CSS and SourceMaps.
+
+### Installation
+
+```bash
+$ npm install --save-dev mini-css-extract-plugin
+```
+
+### Options
+
+https://github.com/jantimon/html-webpack-plugin#options
+
+1\. filename \
+This option determines the name of each output CSS file. Works like output.filename
+
+### Basic Usage
+
+```js
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+
+module.exports = {
+  plugins: [
+    new MiniCssExtractPlugin({
+      filename: "[name].css", // default
+      // filename: "[contenthash].css",
+    }),
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: [
+          // { loader: "style-loader" },
+          MiniCssExtractPlugin.loader,
+          { loader: "css-loader" },
+        ],
+      },
+    ],
+  },
+};
+```
+
+## optimize-css-assets-webpack-plugin
+
+https://github.com/NMFR/optimize-css-assets-webpack-plugin \
+https://cssnano.co/
+
+A Webpack plugin to optimize \ minimize CSS assets. <u>For webpack v5 or above please use css-minimizer-webpack-plugin instead.</u>
+
+### Installation
+
+```bash
+$ npm install --save-dev cssnano optimize-css-assets-webpack-plugin
+```
+
+### Options
+
+1\. assetNameRegExp \
+A regular expression that indicates the names of the assets that should be optimized \ minimized. The regular expression provided is run against the filenames of the files exported by the ExtractTextPlugin instances in your configuration, not the filenames of your source CSS files.
+
+2\. cssProcessor \
+The CSS processor used to optimize \ minimize the CSS, defaults to cssnano.
+
+### Basic Usage
+
+```js
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
+
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, { loader: "css-loader" }],
+      },
+    ],
+  },
+  plugins: [
+    new MiniCssExtractPlugin({ filename: "[contenthash].css" }),
+    new OptimizeCssAssetsPlugin({
+      assetNameRegExp: /\.css$/i,
+      cssProcessor: require("cssnano"),
+      cssProcessorPluginOptions: {
+        preset: ["default", { discardComments: { removeAll: true } }],
+      },
+      canPrint: true,
+    }),
+  ],
+};
+```
+
+## css-minimizer-webpack-plugin
+
+https://github.com/webpack-contrib/css-minimizer-webpack-plugin
 
 ## Devtool
 
@@ -314,6 +430,37 @@ this._sourceMapManager.setEnabled(
   Common.moduleSetting("jsSourceMapsEnabled").get()
 );
 ```
+
+## terser-webpack-plugin
+
+https://github.com/webpack-contrib/terser-webpack-plugin
+
+This plugin uses terser to minify/minimize your JavaScript. Webpack v5 comes with the latest terser-webpack-plugin out of the box. If you are using Webpack v5 or above and wish to customize the options, you will still need to install terser-webpack-plugin.
+
+### Installation
+
+```bash
+$ npm install terser-webpack-plugin --save-dev
+```
+
+### Basic Usage
+
+```js
+const TerserPlugin = require("terser-webpack-plugin");
+
+module.exports = {
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
+  },
+};
+```
+
+### Others
+
+https://www.npmjs.com/package/uglifyjs-webpack-plugin \
+https://www.npmjs.com/package/babel-minify-webpack-plugin \
+https://blog.logrocket.com/terser-vs-uglify-vs-babel-minify-comparing-javascript-minifiers/
 
 ## ETC
 
