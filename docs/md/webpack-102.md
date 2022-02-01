@@ -89,51 +89,91 @@ Chunkhash is based on webpack entry point. Each entry defined will have it’s o
 <b>Contenthash</b>: \
 Contenthash is specfic type of hash created in ExtractTextPlugin and is calculated by extracted content not by full chunk content.
 
-## style-loader
+### output.publicPath
 
-https://webpack.kr/loaders/style-loader/
+이것은 온 디맨드 로드를 사용하거나 이미지, 파일 등과 같은 외부 리소스를 로드할 때 중요한 옵션입니다. 이 옵션은 브라우저에서 참조될 때 출력 디렉토리의 공용 URL 을 지정합니다. 상대 URL은 HTML 페이지 또는 \<base>태그를 기준으로 확인됩니다. 서버 상대 URL, 프로토콜 상대 URL 또는 절대 URL도 가능하며 때로는 필요합니다(CDN에서 애셋을 호스팅 하는 경우).
 
-Inject CSS into the DOM.
+옵션의 값은 런타임 또는 로더가 생성한 모든 URL에 접두사로 추가됩니다. 이 때문에 이 옵션의 값은 대부분의 경우 / 로 끝납니다.
 
-```bash
-$ npm install --save-dev style-loader
+```js
+module.exports = {
+  //...
+  output: {
+    // 아래 중 하나
+    publicPath: "auto", // `import.meta.url`, `document.currentScript`, `<script />` 또는 `self.location`에서 public path를 자동으로 결정합니다.
+    publicPath: "https://cdn.example.com/assets/", // CDN (항상 HTTPS)
+    publicPath: "//cdn.example.com/assets/", // CDN (같은 프로토콜)
+    publicPath: "/assets/", // 서버의 상대 경로
+    publicPath: "assets/", // HTML 페이지의 상대 경로
+    publicPath: "../assets/", // HTML 페이지의 상대 경로
+    publicPath: "", // HTML 페이지의 상대 경로 (같은 디렉터리)
+  },
+};
 ```
 
-It's recommended to combine style-loader with the css-loader.
+## Module
 
-### Options
+https://webpack.kr/configuration/module
 
-1\. injectType
+### Rule (module.rules)
 
-Allows to setup how styles will be injected into the DOM
+https://webpack.kr/configuration/module/#rule
 
-- "styleTag" (Default) \
-  Automatically injects styles into the DOM using multiple <style></style>. It is default behaviour.
+### Rule.oneOf
 
-- "singletonStyleTag" \
-  Automatically injects styles into the DOM using one <style></style>.
+https://webpack.kr/configuration/module/#ruleoneof
 
-## css-loader
+Rule이 일치할 때 첫 번째 일치하는 Rule만 사용되는 Rules의 배열입니다.
 
-https://webpack.js.org/loaders/css-loader/
+#### webpack.config.js
 
-### Options
+```js
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
-https://github.com/webpack-contrib/css-loader#modules
+module.exports = {
+  //...
+  module: {
+    rules: [
+      {
+        test: /\.s[ac]ss$/i,
+        oneOf: [
+          {
+            test: /\.module\.s[ac]ss$/i,
+            use: [
+              // Creates `style` nodes from JS strings
+              { loader: "style-loader" },
+              // Translates CSS into CommonJS
+              {
+                loader: "css-loader",
+                options: { modules: true },
+              },
+              // Compiles Sass to CSS
+              { loader: "sass-loader" },
+            ],
+          },
+          {
+            use: [MiniCssExtractPlugin.loader, "css-loader", "sass-loader"],
+          },
+        ],
+      },
+    ],
+  },
+};
+```
 
-1\. modules
+## Asset Modules
 
-Allows to enables/disables or setup CSS Modules options \
-CSS의 class, id 이름을 자동 재생성하여 모듈에 적용 (여러 CSS에서 이름이 중복되어도 구분가능)
+https://webpack.kr/guides/asset-modules/
 
-- undefined (Default) \
-  enable CSS modules for all files matching /\\.module\\.\w+\$/i.test(filename) and /\\.icss\\.\\w+$/i.test(filename) regexp.
+애셋 모듈은 로더를 추가로 구성하지 않아도 애셋 파일(폰트, 아이콘 등)을 사용할 수 있도록 해주는 모듈입니다. webpack 5 이전에는 아래의 로더를 사용하는 것이 일반적이었습니다.
 
-- true \
-  enable CSS modules for all files.
-
-- false \
-  disables CSS Modules for all files. Using false value increase performance because we avoid parsing CSS Modules features, it will be useful for developers who use vanilla css or use other technologies.
+- raw-loader, 파일을 문자열로 가져올 때 \
+  https://v4.webpack.js.org/loaders/raw-loader/
+- url-loader, 파일을 data URI 형식으로 번들에 인라인 추가 할 때 \
+  https://v4.webpack.js.org/loaders/url-loader/ \
+  https://developer.mozilla.org/ko/docs/Web/HTTP/Basics_of_HTTP/Data_URIs
+- file-loader, 파일을 출력 디렉터리로 내보낼 때 \
+  https://v4.webpack.js.org/loaders/file-loader/
 
 ## html-webpack-plugin
 
@@ -307,4 +347,7 @@ this._sourceMapManager.setEnabled(
 
 ## ETC
 
-https://www.npmjs.com/package/normalize.css
+https://www.npmjs.com/package/normalize.css \
+https://postcss.org/ \
+https://www.npmjs.com/package/postcss-loader \
+https://www.npmjs.com/package/webpack-merge

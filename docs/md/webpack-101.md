@@ -173,4 +173,5 @@ module.exports = {
 };
 ```
 
-https://joshua1988.github.io/webpack-guide/guide.html
+https://joshua1988.github.io/webpack-guide/guide.html \
+https://yamoo9.gitbook.io/webpack/

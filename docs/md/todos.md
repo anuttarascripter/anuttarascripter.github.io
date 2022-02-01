@@ -28,3 +28,11 @@ https://stackoverflow.com/questions/48588908/deploying-ignored-dist-folder-to-gi
 ```ps
 PS> route print
 ```
+
+### Stylelint
+
+https://stylelint.io/
+
+### Prettier
+
+https://prettier.io/

@@ -18,6 +18,8 @@ const sections = [
       "webpack-102",
       "webpack-103",
       "webpack-104",
+      "webpack-105",
+      "webpack-106",
       "markdown",
       "text-editors",
     ],
