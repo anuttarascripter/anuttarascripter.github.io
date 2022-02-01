@@ -1,3 +1,5 @@
+<p style="text-align: right">2022-01-31</p>
+
 ## webpack 설치 및 실행
 
 https://webpack.js.org/

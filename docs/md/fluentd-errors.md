@@ -1,3 +1,5 @@
+<p style="text-align: right">2022-01-16</p>
+
 ## anutt-1.
 
 td-agent.service 파일이 없음. 직접 만들어서 넣어야 되는 것인지 확인
@@ -47,5 +49,6 @@ $ chmod 777 /home/ubuntu/log
 ```
 
 # References
+
 https://hidelryn.github.io/2020/05/09/etc-fluentd-2 \
 https://smoh.tistory.com/366

@@ -1,3 +1,5 @@
+<p style="text-align: right">2022-01-16</p>
+
 # References
 
 https://www.fluentd.org \

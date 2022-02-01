@@ -1,3 +1,5 @@
+<p style="text-align: right">2022-01-22</p>
+
 ## Amazon Machine Image (AMI) 생성
 
 ```

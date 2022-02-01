@@ -1,3 +1,5 @@
+<p style="text-align: right">2022-01-18</p>
+
 ## nginx 설치
 
 https://docs.nginx.com \

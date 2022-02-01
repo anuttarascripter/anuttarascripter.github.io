@@ -1,3 +1,5 @@
+<p style="text-align: right">2022-02-01</p>
+
 ## NVM 설치
 
 https://github.com/nvm-sh/nvm

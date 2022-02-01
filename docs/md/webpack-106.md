@@ -1,3 +1,5 @@
+<p style="text-align: right">2022-02-01</p>
+
 ## DefinePlugin
 
 https://webpack.kr/plugins/define-plugin/

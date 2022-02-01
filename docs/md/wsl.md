@@ -1,3 +1,5 @@
+<p style="text-align: right">2022-01-16</p>
+
 # Manual installation
 
 https://docs.microsoft.com/en-us/windows/wsl/install \
