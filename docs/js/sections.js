@@ -24,7 +24,7 @@ const sections = [
   },
   {
     title: "utils",
-    items: ["git", "markdown", "text-editors"],
+    items: ["git", "gradle", "markdown", "text-editors"],
   },
   {
     title: "etc",
