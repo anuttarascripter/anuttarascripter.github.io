@@ -1,4 +1,4 @@
-<p style="text-align: right">2022-02-01</p>
+<p style="text-align: right">2022-02-02</p>
 
 ### s3browser
 
@@ -38,3 +38,34 @@ https://stylelint.io/
 ### Prettier
 
 https://prettier.io/
+
+### Babel
+
+https://babeljs.io/
+
+### Docker
+
+https://www.docker.com/
+
+### WASM
+
+https://webassembly.org/
+
+### Ionic & Capacitor
+
+https://ionicframework.com/ \
+https://capacitorjs.com/
+
+### Android & Gradle
+
+https://gradle.org/
+
+Build your app from the command line
+
+https://developer.android.com/studio/build/building-cmdline
+
+### Node.js C++ addon & CMake
+
+https://nodejs.org/dist/latest-v16.x/docs/api/addons.html \
+https://cmake.org/ \
+https://js-dos.com/

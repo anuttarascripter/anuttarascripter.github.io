@@ -1,7 +1,7 @@
 const sections = [
   {
     title: "system",
-    items: ["ubuntu-101", "ubuntu-102", "wsl"],
+    items: ["ubuntu-101", "ubuntu-102", "shell_script", "wsl"],
   },
   {
     title: "web",
@@ -12,7 +12,7 @@ const sections = [
     items: ["aws-auto-scaling", "fluentd", "fluentd-errors"],
   },
   {
-    title: "utils",
+    title: "webpack",
     items: [
       "webpack-101",
       "webpack-102",
@@ -20,12 +20,14 @@ const sections = [
       "webpack-104",
       "webpack-105",
       "webpack-106",
-      "markdown",
-      "text-editors",
     ],
   },
   {
-    title: "study list",
+    title: "utils",
+    items: ["git", "markdown", "text-editors"],
+  },
+  {
+    title: "etc",
     items: ["regex", "todos"],
   },
 ];

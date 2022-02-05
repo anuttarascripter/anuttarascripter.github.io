@@ -16,7 +16,7 @@ for (const section of sections) {
   const ol = document.createElement("ol");
   for (const item of section.items) {
     const li = document.createElement("li");
-    li.innerHTML = `<a href="/viewer.html?title=${item}">${item}</a>`;
+    li.innerHTML = `<a href="/viewer.html?item=${section.title}/${item}">${item}</a>`;
     ol.appendChild(li);
   }
   divMain.appendChild(ol);
