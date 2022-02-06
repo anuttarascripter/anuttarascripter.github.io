@@ -253,7 +253,11 @@ https://docs.gradle.org/current/userguide/application_plugin.html
 
 ## Building Android Apps Sample
 
-https://docs.gradle.org/current/samples/sample_building_android_apps.html
+https://docs.gradle.org/current/samples/sample_building_android_apps.html \
+https://developer.android.com/studio/build \
+https://developer.android.com/studio/build/gradle-tips \
+https://developer.android.com/studio/command-line \
+https://developer.android.com/studio/tools/help/android
 
 ## Building C++ Applications Sample
 
@@ -292,7 +296,7 @@ The following properties can be used to configure the Gradle build environment:
   Specifies the Java home for the Gradle build process. This does not affect the version of Java used to launch the Gradle client VM (see Environment variables).
 
 ```
-org.gradle.java.home=C\:\\Program Files\\Android\\Android Studio\\jre
+org.gradle.java.home=C:/Program Files/Android/Android Studio/jre
 ```
 
 - org.gradle.jvmargs=(JVM arguments) \

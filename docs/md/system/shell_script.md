@@ -2,6 +2,8 @@
 
 ## Windows Batch Scripting
 
+https://www.section.io/engineering-education/dive-into-batch-scripting-language/
+
 ```bat
 @REM @ sign to prevent the command from appearing.
 
@@ -21,4 +23,23 @@ CHCP 65001
 
 @REM path 환경변수 경로별 한줄 출력
 ECHO %path:;=&echo.%
+
+
+DIR /s
+DIR /s "C:\*.mp3"
+
+CHCP 65001 >> "tlog.txt"
+DIR "C:\Users" >> "tlog.txt"
+DIR %1 > %2
+
+SET evar
+SET evar=123
+SET evar=
+
+SET TEST=%~dp0
+ECHO %~dp0
+ECHO %TEST%
 ```
+
+https://ss64.com/nt/call.html \
+https://blog.naver.com/PostView.nhn?blogId=zlatmgpdjtiq&logNo=221469960587

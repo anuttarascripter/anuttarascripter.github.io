@@ -8,6 +8,10 @@ const sections = [
     items: ["nginx-101", "node.js", "dom"],
   },
   {
+    title: "app",
+    items: ["android", "gradle", "capacitor"],
+  },
+  {
     title: "cloud",
     items: ["aws-auto-scaling", "fluentd", "fluentd-errors"],
   },
@@ -24,7 +28,7 @@ const sections = [
   },
   {
     title: "utils",
-    items: ["git", "gradle", "markdown", "text-editors"],
+    items: ["git", "markdown", "text-editors"],
   },
   {
     title: "etc",
