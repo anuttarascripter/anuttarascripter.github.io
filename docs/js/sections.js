@@ -5,7 +5,7 @@ const sections = [
   },
   {
     title: "web",
-    items: ["nginx-101", "node.js", "dom"],
+    items: ["nginx-101", "node.js", "dom", "webrtc"],
   },
   {
     title: "app",

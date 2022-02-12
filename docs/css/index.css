@@ -8,7 +8,19 @@
   line-height: 50px;
 }
 
+#div-main {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.div-section {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  margin: 10px;
+  padding: 20px;
+}
+
 h3 {
-  margin-top: 40px;
-  padding-left: 16px;
+  margin-top: 5x;
+  padding-left: 10px;
 }

@@ -9,9 +9,10 @@ const header = document.getElementById("header");
 
 const divMain = document.getElementById("div-main");
 for (const section of sections) {
+  const divSection = document.createElement("div");
   const heading = document.createElement("h3");
   heading.innerHTML = `${section.title}`;
-  divMain.appendChild(heading);
+  divSection.appendChild(heading);
 
   const ol = document.createElement("ol");
   for (const item of section.items) {
@@ -19,5 +20,9 @@ for (const section of sections) {
     li.innerHTML = `<a href="/viewer.html?item=${section.title}/${item}">${item}</a>`;
     ol.appendChild(li);
   }
-  divMain.appendChild(ol);
+  divSection.appendChild(ol);
+
+  divSection.classList.add("div-section");
+  // divSection.className = "div-section";
+  divMain.appendChild(divSection);
 }
