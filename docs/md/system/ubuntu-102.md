@@ -1,4 +1,4 @@
-<p style="text-align: right">2022-01-18</p>
+<p style="text-align: right">2022-02-21</p>
 
 ## apt (Advanced package tool)
 
@@ -46,4 +46,9 @@ $ nohup node app.js &
 $ ln -s {TARGET} {LINK_NAME}  # symlink(soft link) 생성
 
 $ rm {FILE_NAME}              # 파일삭제
+
+
+$ sudo ufw status verbose       # 방화벽 상태확인
+$ sudo ufw allow 1234/tcp       # 방화벽 설정 (단일 포트)
+$ sudo ufw allow 1230:1240/tcp  # 방화벽 설정 (포트 범위)
 ```

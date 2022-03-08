@@ -13,7 +13,7 @@ const sections = [
   },
   {
     title: "cloud",
-    items: ["aws-auto-scaling", "fluentd", "fluentd-errors"],
+    items: ["aws-101", "aws-auto-scaling", "fluentd", "fluentd-errors"],
   },
   {
     title: "webpack",
