@@ -1,4 +1,4 @@
-<p style="text-align: right">2022-02-01</p>
+<p style="text-align: right">2022-04-28</p>
 
 ## NVM 설치
 
@@ -26,6 +26,23 @@ $ nvm install --lts
 $ sudo ln -s "$NVM_DIR/versions/node/{version}/bin/node" "/usr/local/bin/node"
 $ sudo ln -s "$NVM_DIR/versions/node/{version}/bin/npm" "/usr/local/bin/npm"
 $ sudo ln -s "$NVM_DIR/versions/node/{version}/bin/npx" "/usr/local/bin/npx"
+```
+
+### using chocolatey (windows)
+
+https://community.chocolatey.org/ \
+https://community.chocolatey.org/packages/nvm
+
+## NVM 사용
+
+```bash
+$ nvm install 14.19.1
+$ nvm use 14.19.1
+$ nvm uninstall 14.19.1
+
+# node 및 package 설치위치 (ubuntu)
+# /root/.nvm/versions/node/v14.19.1/bin/corepack
+# /root/.nvm/versions/node/v14.19.1/lib/node_modules/corepack/dist/corepack.js
 ```
 
 ## package.json
