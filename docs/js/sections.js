@@ -13,7 +13,15 @@ const sections = [
   },
   {
     title: "cloud",
-    items: ["aws-101", "aws-auto-scaling", "fluentd", "fluentd-errors"],
+    items: [
+      "aws-101",
+      "aws-cli",
+      "aws-auto-scaling",
+      "fluentd",
+      "fluentd-errors",
+      "kubernetes-101",
+      "terraform-101",
+    ],
   },
   {
     title: "webpack",
@@ -28,7 +36,7 @@ const sections = [
   },
   {
     title: "utils",
-    items: ["git", "markdown", "text-editors"],
+    items: ["git", "chocolatey", "markdown", "text-editors"],
   },
   {
     title: "etc",

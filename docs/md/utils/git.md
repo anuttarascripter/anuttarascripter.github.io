@@ -1,5 +1,20 @@
 <p style="text-align: right">2022-04-28</p>
 
+### git 버전 업그레이드
+
+```bash
+$ add-apt-repository ppa:git-core/ppa
+$ apt update
+$ apt install git
+```
+
+### 사용자 정보 등록
+
+```bash
+$ git config --global user.name {user-name}
+$ git config --global user.email {user-email}
+```
+
 ### commit 복원
 
 https://gmlwjd9405.github.io/2018/05/25/git-add-cancle.html

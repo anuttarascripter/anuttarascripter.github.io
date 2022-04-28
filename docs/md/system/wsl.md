@@ -73,13 +73,13 @@ REM Export a distribution to a TAR file
 > wsl --export Ubuntu ubuntu.tar
 > wsl --export Ubuntu-20.04 ubuntu_20_04.tar
 
-REM Unregister or uninstall a Linux distribution
+REM Import a new distribution
 > wsl --import <Distribution Name> <InstallLocation> <FileName>
 > wsl --import UbuntuAWS .\UbuntuAWS ubuntu.tar
 > wsl --import UbuntuPython .\UbuntuPython ubuntu.tar
 > wsl --import UbuntuAWS .\wsl\UbuntuAWS ubuntu_20_04.tar
 
-REM Import a new distribution
+REM Unregister or uninstall a Linux distribution
 > wsl --unregister <DistributionName>
 > wsl --unregister Ubuntu-20.04
 ```

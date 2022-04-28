@@ -2,7 +2,8 @@
 
 ## NVM 설치
 
-https://github.com/nvm-sh/nvm
+https://github.com/nvm-sh/nvm \
+https://docs.microsoft.com/ko-kr/windows/dev-environment/javascript/nodejs-on-wsl
 
 ```bash
 $ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
