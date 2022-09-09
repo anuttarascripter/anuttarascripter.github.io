@@ -11,6 +11,7 @@ wsl에 docker 와 kubectl이 연결됨
 ```bash
 $ docker --version
 $ kubectl version
+$ kubectl version --client
 ```
 
 ### Enable Kubernetes in Docker Desktop
@@ -47,4 +48,17 @@ $ kubectl config current-context      # 현재 사용중인 context 보기
 $ kubectl config use-context my-eks   # context 변경
 
 $ kubectl get pods
+```
+
+## 기본명령
+
+```bash
+$ kubectl api-resources
+
+$ kubectl get po --all-namespaces
+$ kubectl get po -o wide
+
+$ kubectl logs nestjs-test-pod --tail=10
+$ kubectl logs nestjs-test-pod -f
+$ kubectl exec --stdin --tty nestjs-test-pod -- /bin/bash
 ```

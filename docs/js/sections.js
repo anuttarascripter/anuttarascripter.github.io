@@ -17,6 +17,8 @@ const sections = [
       "aws-101",
       "aws-cli",
       "aws-auto-scaling",
+      "docker-101",
+      "docker-registry",
       "fluentd",
       "fluentd-errors",
       "kubernetes-101",
