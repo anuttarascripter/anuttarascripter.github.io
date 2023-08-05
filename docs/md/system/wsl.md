@@ -84,6 +84,19 @@ REM Unregister or uninstall a Linux distribution
 > wsl --unregister Ubuntu-20.04
 ```
 
+## Create User
+
+```bash
+$ NEW_USER=<USERNAME>
+$ useradd -m -G sudo -s /bin/bash "$NEW_USER"
+$ passwd "$NEW_USER"
+
+$ cat <<EOF >> wsl.conf
+[user]
+default=${NEW_USER}
+EOF
+```
+
 <br/>
 
 # Et Cetera
