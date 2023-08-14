@@ -23,6 +23,8 @@ const sections = [
       "fluentd-errors",
       "kubernetes-101",
       "terraform-101",
+      "vagrant",
+      "virtualbox",
     ],
   },
   {
