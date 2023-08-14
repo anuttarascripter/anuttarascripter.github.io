@@ -109,6 +109,14 @@ https://adamtheautomator.com/windows-subsystem-for-linux/
 %USERPROFILE%\AppData\Local\Packages\
 ```
 
+## netsh
+
+```
+> netsh interface portproxy show v4tov4
+> netsh interface portproxy add v4tov4 listenport=2200 listenaddress=0.0.0.0 connectport=2200 connectaddress=127.0.0.1
+> netsh interface portproxy delete v4tov4 listenport=2200 listenaddress=0.0.0.0
+```
+
 ## 윈도우즈와 파일공유
 
 리눅스에서 윈도우즈 경로
