@@ -28,6 +28,10 @@ const sections = [
     ],
   },
   {
+    title: "infra",
+    items: ["kvm", "collectd", "prometheus"],
+  },
+  {
     title: "webpack",
     items: [
       "webpack-101",

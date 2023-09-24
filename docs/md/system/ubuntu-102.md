@@ -52,3 +52,22 @@ $ sudo ufw status verbose       # 방화벽 상태확인
 $ sudo ufw allow 1234/tcp       # 방화벽 설정 (단일 포트)
 $ sudo ufw allow 1230:1240/tcp  # 방화벽 설정 (포트 범위)
 ```
+
+```bash
+$ df -h
+
+# users
+$ cat /etc/passwd
+$ getent passwd       # Get entries from administrative database.
+
+# groups
+$ cat /etc/group
+$ getent group
+
+$ find . -name "prometheus.yml"
+
+$ sudo netstat -tuln
+$ ss -tuln
+
+$ nc -l 8081
+```
