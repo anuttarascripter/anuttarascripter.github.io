@@ -29,7 +29,7 @@ const sections = [
   },
   {
     title: "infra",
-    items: ["kvm", "collectd", "prometheus"],
+    items: ["kvm", "kolla-ansible", "collectd", "prometheus"],
   },
   {
     title: "webpack",
