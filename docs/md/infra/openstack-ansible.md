@@ -174,6 +174,8 @@ https://docs.openstack.org/project-deploy-guide/openstack-ansible/zed/deployment
 
 # cd /opt/openstack-ansible
 # scripts/bootstrap-ansible.sh
+
+# apt install postfix       ## choose No configuration
 ```
 
 # 3. Prepare the target hosts
@@ -190,9 +192,11 @@ https://docs.openstack.org/project-deploy-guide/openstack-ansible/zed/targethost
 # apt install bridge-utils debootstrap openssh-server tcpdump vlan python3 -y
 # apt install linux-modules-extra-$(uname -r)
 # reboot
+
+# apt install postfix       ## choose No configuration
 ```
 
-## 3.2 Configuring the storage
+## 3.2 Configuring the storage (Storage Node)
 
 ```console
 # ssh storage
@@ -211,6 +215,26 @@ vde                       252:64   0   20G  0 disk
 # pvdisplay
 # vgs
 # lvs
+
+# mkfs.ext4 /dev/vdc
+# mkfs.ext4 /dev/vdd
+# mkfs.ext4 /dev/vde
+
+# mkdir -p /srv/node/vdc
+# mkdir -p /srv/node/vdd
+# mkdir -p /srv/node/vde
+
+# mount /dev/vdc /srv/node/vdc
+# mount /dev/vdd /srv/node/vdd
+# mount /dev/vde /srv/node/vde
+# df -h
+
+# cat /etc/fstab
+...
+# swift disk
+/dev/vdc /srv/node/vdc ext4 defaults 0 0
+/dev/vdd /srv/node/vdd ext4 defaults 0 0
+/dev/vde /srv/node/vde ext4 defaults 0 0
 ```
 
 # 4. Configure the deployment
@@ -472,4 +496,143 @@ swift_replication_address: 172.29.244.31
 #interface_mapping: br-ex:ens3
 neutron_ml2_drivers_type: "local,flat,vlan,vxlan" # for neutron
 #neutron_ml2_drivers_type: ["local", "flat", "vlan", "vxlan"] # for horizon
+```
+
+## 4.2 Configuring service credentials
+
+```console
+# cd /opt/openstack-ansible
+# ./scripts/pw-token-gen.py --file /etc/openstack_deploy/user_secrets.yml
+# cat /etc/openstack_deploy/user_secrets.yml
+```
+
+# 5. Run playbooks
+
+https://docs.openstack.org/project-deploy-guide/openstack-ansible/zed/run-playbooks.html
+
+## 5.1 Checking the integrity of the configuration files
+
+```console
+# cd /opt/openstack-ansible/playbooks
+# openstack-ansible setup-infrastructure.yml --syntax-check
+```
+
+## 5.2 Run the playbooks to install OpenStack
+
+```console
+# cd /opt/openstack-ansible/playbooks
+# openstack-ansible setup-hosts.yml             ## 20min.
+# openstack-ansible setup-infrastructure.yml    ## 40min.
+TASK [galera_server : Install galera role remote packages (apt)] *****      ## 15min.
+
+# ansible galera_container -m shell -a "mysql -h localhost -e 'show status like \"%wsrep_cluster_%\";'"
+
+# openstack-ansible setup-openstack.yml         ## 60min.
+# tail -f /openstack/log/ansible-logging/ansible.log
+```
+
+## 5.3 Manual Modification
+
+### horizon (Deploy Node)
+
+```console
+# cat /etc/openstack_deploy/user_variables.yml
+...
+#neutron_ml2_drivers_type: "local,flat,vlan,vxlan" # for neutron
+neutron_ml2_drivers_type: ["local", "flat", "vlan", "vxlan"] # for horizon
+
+# cd /opt/openstack-ansible/playbooks/
+# openstack-ansible os-horizon-install.yml
+```
+
+### HAProxy (Controller Node)
+
+http://www.haproxy.org/
+
+```console
+# ssh controller
+# lxc-ls --fancy
+NAME                                          STATE   AUTOSTART GROUPS            IPV4                                       IPV6 UNPRIVILEGED
+...
+controller1_horizon_container-25d6b06f        RUNNING 1         onboot, openstack 10.0.3.218, 172.29.237.199                 -    false
+
+# cat /etc/haproxy/haproxy.cfg
+...
+##### horizon
+# Manual changed
+frontend horizon-redirect-front-1
+    bind 192.168.122.11:443
+    option httplog
+    option forwardfor except 127.0.0.0/8
+    option http-server-close
+    mode tcp
+    http-request add-header          X-Forwarded-Proto https
+    timeout client 600s
+    timeout server 600s
+    default_backend horizon-back
+
+frontend horizon-redirect-front-2
+    bind 172.29.236.11:443
+    option httplog
+    option forwardfor except 127.0.0.0/8
+    option http-server-close
+    mode tcp
+    http-request add-header          X-Forwarded-Proto https
+    timeout client 600s
+    timeout server 600s
+    default_backend horizon-back
+
+backend horizon-back
+    mode tcp
+    balance source
+    stick store-request src
+    stick-table type ip size 256k expire 30m
+    option forwardfor
+    option ssl-hello-chk
+    timeout client 600s
+    timeout server 600s
+    server controller1_horizon_container-25d6b06f 172.29.237.199:443 check port 443 inter 12000 rise 1 fall 1
+
+
+# systemctl restart haproxy   # or service haproxy restart
+```
+
+### Open vSwitch (Controller Node & Compute Node)
+
+https://www.openvswitch.org/
+
+```console
+# ssh controller
+# ovs-vsctl show
+# ovs-vsctl add-port br-ex enp10s0      ## external connection for fixed ip
+## tcpdump -nn -i enp10s0 icmp
+
+# ssh compute
+# ovs-vsctl show
+# ovs-vsctl add-port br-ex enp10s0      ## external connection for floating ip
+## tcpdump -nn -i enp10s0 icmp
+```
+
+# 6. Verifying OpenStack operation
+
+https://docs.openstack.org/project-deploy-guide/openstack-ansible/zed/verify-operation.html
+
+## 6.1 Verify the API
+
+```console
+# ssh controller
+# lxc-ls | grep utility
+controller1_utility_container-1c8c5e59
+
+# lxc-attach -n controller1_utility_container-1c8c5e59
+# . ~/openrc
+# openstack service list
+```
+
+## 6.2 Verifying the Dashboard (horizon)
+
+```console
+# ssh deploy
+# cat /etc/openstack_deploy/user_secrets.yml | grep keystone_auth_admin_password
+# curl -v https://172.29.236.11
 ```
