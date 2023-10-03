@@ -622,9 +622,9 @@ https://docs.openstack.org/project-deploy-guide/openstack-ansible/zed/verify-ope
 ```console
 # ssh controller
 # lxc-ls | grep utility
-controller1_utility_container-1c8c5e59
+controller1_utility_container-437d7b67
 
-# lxc-attach -n controller1_utility_container-1c8c5e59
+# lxc-attach -n controller1_utility_container-437d7b67
 # . ~/openrc
 # openstack service list
 ```
@@ -635,4 +635,80 @@ controller1_utility_container-1c8c5e59
 # ssh deploy
 # cat /etc/openstack_deploy/user_secrets.yml | grep keystone_auth_admin_password
 # curl -v https://172.29.236.11
+```
+
+# 7. OpenStack Setting
+
+## 7.1 Creat a public network at admin
+
+```
+> Network
+- Name              : public
+- Project           : admin
+- Network Type      : flat
+- Physical Network  : public   # neutron_provider_networks.network_mappings
+- Shared, External Network, Subnet
+
+> Subnet
+- Name              : public_subnet
+- Network address   : 192.168.122.0/24
+- Gateway IP        : 192.168.122.1
+- Allocation Pools  : 192.168.122.200,192.168.122.250
+- DNS Name Servers  : 8.8.8.8
+```
+
+## 7.2 Create flavor
+
+```
+- Name              : m1.nano
+- VCPUs             : 1
+- RAM (MB)          : 64
+- Root Disk (GB)    : 1
+```
+
+## 7.2 Create image
+
+```bash
+## Image Name   : cirros-0.4.0
+## Disk Format : QCOW2
+## https://github.com/cirros-dev/cirros/issues/63
+## cirros-0.4.0-x86_64 and cirros-0.3.5-x86_64 works fine.
+
+$ wget http://download.cirros-cloud.net/0.4.0/cirros-0.4.0-x86_64-disk.img
+```
+
+## 7.3 Creat a private network
+
+```
+- private_subnet : 172.16.0.0/24
+```
+
+## 7.4 Nova Console
+
+### Nova Console
+
+```console
+## Nova Console
+# ssh controller
+# cat /etc/haproxy/haproxy.cfg
+...
+backend nova_console-back
+    ...
+    server controller1_nova_api_container-341d507f 172.29.239.81:6080 check port 6080 inter 12000 rise 3 fall 3
+...
+
+# lxc-ls --fancy
+NAME                                          STATE   AUTOSTART GROUPS            IPV4                                       IPV6 UNPRIVILEGED
+...
+controller1_nova_api_container-341d507f       RUNNING 1         onboot, openstack 10.0.3.139, 172.29.239.81                  -    false
+...
+
+## in Nova Console
+$ ping 8.8.8.8
+```
+
+### SSH Connection
+
+```console
+# ssh cirros@192.168.122.244      # floating ip
 ```
