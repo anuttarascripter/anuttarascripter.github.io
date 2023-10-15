@@ -35,6 +35,7 @@ const sections = [
       "openstack-ansible",
       "collectd",
       "prometheus",
+      "network-ip",
     ],
   },
   {
