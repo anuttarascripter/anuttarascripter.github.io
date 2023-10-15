@@ -101,6 +101,13 @@ $ sudo ip netns exec red ip route add default via 192.168.0.1 dev veth2-r
 
 # iptables
 
+https://blog.naver.com/mincoding/221714469549 \
+https://blessu1201.github.io/2020/09/08/iptables.html \
+https://whitewing4139.tistory.com/125 \
+https://lindarex.github.io/ubuntu/ubuntu-iptables-setting \
+https://yurmu.tistory.com/31 \
+https://velog.io/@qlgks1/리눅스-방화벽-시스템-방화벽-netfilter-iptables-ufw-nftables
+
 ```bash
 $ iptables -h
 $ iptables -L
