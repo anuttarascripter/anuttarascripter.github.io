@@ -1,4 +1,4 @@
-<p style="text-align: right">2022-01-16</p>
+<p style="text-align: right">2024-02-11</p>
 
 # Manual installation
 
@@ -65,6 +65,9 @@ REM Run a specific Linux distribution
 > wsl -d <Distribution Name> -u <User Name>
 > wsl -d UbuntuAWS
 
+> wsl -d UbuntuDEV -u meliu ip address
+> wsl -d UbuntuDEV -u meliu hostname -I
+
 REM Terminate
 > wsl --terminate <Distribution Name>
 
@@ -98,6 +101,33 @@ EOF
 ```
 
 <br/>
+
+# WSL Networking
+
+## Accessing network applications with WSL
+
+https://learn.microsoft.com/ko-kr/windows/wsl/networking
+
+```bash
+$ ip route show | grep -i default | awk '{ print $3}'
+```
+
+```cmd
+> netsh interface portproxy add v4tov4 listenport=<yourPortToForward> listenaddress=0.0.0.0 connectport=<yourPortToConnectToInWSL> connectaddress=(wsl hostname -I)
+> netsh interface portproxy add v4tov4 listenport=8801 listenaddress=0.0.0.0 connectport=8801 connectaddress=192.168.101.65
+```
+
+## Firewall
+
+https://learn.microsoft.com/en-us/windows/security/operating-system-security/network-security/windows-firewall/configure-with-command-line
+https://learn.microsoft.com/en-us/troubleshoot/windows-server/networking/netsh-advfirewall-firewall-control-firewall-behavior
+
+```cmd
+> netsh advfirewall firewall show rule name=all
+> netsh advfirewall firewall show rule name="Allow_TCPs"
+> netsh advfirewall firewall add rule name="Allow_TCPs" dir=in action=allow protocol=TCP localport=80,443,8000-8899
+> netsh advfirewall firewall delete rule name="Allow_TCPs"
+```
 
 # Et Cetera
 
